@@ -139,9 +139,16 @@ These values are required to construct off-chain authorizations.
 
 ---
 
+## Gas & Reentrancy Notes
+
+The vault follows the Checks-Effects-Interactions pattern and updates authorization
+state before transferring ETH, preventing reentrancy-based double-withdrawals.
+
+---
+
 ## Failure Behavior
 
 * Any attempt to reuse an authorization will revert with "Authorization already used".
 * Withdrawals with mismatched amount, recipient, or nonce will revert.
 * Withdrawals requested by unregistered vaults will revert.
-* Unauthorized callers cannot trigger privileged state transiti
+* Unauthorized callers cannot trigger privileged state transitions.
